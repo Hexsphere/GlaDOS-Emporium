@@ -2,8 +2,8 @@
 clear
 
 # CODE
-source ./functions/assistant_story.sh
+# source ./functions/assistant_story.sh
 
-username="Hexsphere"
+# username="Hexsphere"
 
-store_menu_story
+# store_menu_story
