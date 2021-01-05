@@ -1,4 +1,5 @@
 # DATA
+source ./functions/utilities/validate_response.sh
 source ./functions/utilities/message_loops.sh
 source ./functions/utilities/manage_data.sh
 
@@ -9,49 +10,49 @@ source ./functions/store.sh
 # CODE
 
 # Validations
-validate_store_menu_response () {
-    get_store_menu_response () {
-        read store_menu_response
+# validate_store_menu_response () {
+#     get_store_menu_response () {
+#         read store_menu_response
 
-        store_menu_response_lowercase=`echo "$store_menu_response" | tr '[:upper:]' '[:lower:]'`
-        validate_store_menu_response
-    }
+#         store_menu_response=`echo "$store_menu_response" | tr '[:upper:]' '[:lower:]'`
+#         validate_store_menu_response
+#     }
 
-    if [ -z "$store_menu_response_lowercase" ]; then
-        echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
+#     if [ -z "$store_menu_response" ]; then
+#         echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
 
-        get_store_menu_response
+#         get_store_menu_response
 
-    elif [ "$store_menu_response_lowercase" != "1" ] && [ "$store_menu_response_lowercase" != "2" ] && [ "$store_menu_response_lowercase" != "3" ]; then
-        printf "\n"
+#     elif [ "$store_menu_response" != "1" ] && [ "$store_menu_response" != "2" ] && [ "$store_menu_response" != "3" ]; then
+#         printf "\n"
 
-        echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\", or \"3\" to select an option."
+#         echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\", or \"3\" to select an option."
 
-        get_store_menu_response
-    fi
-}
+#         get_store_menu_response
+#     fi
+# }
 
-validate_account_settings_menu_response () {
-    get_account_settings_menu_response () {
-        read account_settings_menu_response
+# validate_account_settings_menu_response () {
+#     get_account_settings_menu_response () {
+#         read account_settings_menu_response
 
-        account_settings_menu_response_lowercase=`echo "$account_settings_menu_response" | tr '[:upper:]' '[:lower:]'`
-        validate_account_settings_menu_response
-    }
+#         account_settings_menu_response=`echo "$account_settings_menu_response" | tr '[:upper:]' '[:lower:]'`
+#         validate_account_settings_menu_response
+#     }
 
-    if [ -z "$account_settings_menu_response_lowercase" ]; then
-        echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
+#     if [ -z "$account_settings_menu_response" ]; then
+#         echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
 
-        get_account_settings_menu_response
+#         get_account_settings_menu_response
 
-    elif [ "$account_settings_menu_response_lowercase" != "1" ] && [ "$account_settings_menu_response_lowercase" != "2" ] && [ "$account_settings_menu_response_lowercase" != "3" ] && [ "$account_settings_menu_response_lowercase" != "4" ] && [ "$account_settings_menu_response_lowercase" != "5" ]; then
-        printf "\n"
+#     elif [ "$account_settings_menu_response" != "1" ] && [ "$account_settings_menu_response" != "2" ] && [ "$account_settings_menu_response" != "3" ] && [ "$account_settings_menu_response" != "4" ] && [ "$account_settings_menu_response" != "5" ]; then
+#         printf "\n"
 
-        echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\" \"3\", or \"4\" to select an option."
+#         echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\" \"3\", or \"4\" to select an option."
 
-        get_account_settings_menu_response
-    fi
-}
+#         get_account_settings_menu_response
+#     fi
+# }
 
 
 # Stories
@@ -62,7 +63,7 @@ home_menu_story () {
     printf "\n"
 
     echo "####                      HOME DASHBOARD                      ####"
-    echo -e "View the menus that are in the GlaDOS Emporium. Scroll down to the\nof the page to use the menu"
+    echo -e "View the menus that are in the GLaDOS Emporium. Scroll down to the\nof the page to use the menu"
 
     printf "\n"
 
@@ -95,18 +96,18 @@ home_menu_story () {
     echo "####                 3. Log out and exit                      ####"
     read home_menu_response
 
-    home_menu_response_lowercase=`echo "$home_menu_response" | tr '[:upper:]' '[:lower:]'`
-    validate_home_menu_response
+    home_menu_response=`echo "$home_menu_response" | tr '[:upper:]' '[:lower:]'`
+    validate_response "$home_menu_response" "1" "2" "3"
 
     clear
 
-    if [ "$home_menu_response_lowercase" == "1" ]; then
+    if [ "$home_menu_response" == "1" ]; then
         store_story
 
-    elif [ "$home_menu_response_lowercase" == "2" ]; then
+    elif [ "$home_menu_response" == "2" ]; then
         account_settings_menu_story
 
-    elif [ "$home_menu_response_lowercase" == "3" ]; then
+    elif [ "$home_menu_response" == "3" ]; then
         log_out_story
     fi
 }
@@ -116,7 +117,7 @@ store_menu_story () {
     printf "\n"
 
     echo "####                     STORE DASHBOARD                      ####"
-    echo -e "View and purchase items in the GlaDOS Emporium store. Scroll down\nto the bottom of the page to use the menu."
+    echo -e "View and purchase items in the GLaDOS Emporium store. Scroll down\nto the bottom of the page to use the menu."
 
     printf "\n"
 
@@ -131,7 +132,7 @@ store_menu_story () {
     echo "####     NAME:     CATEGORY:     PRICE:     DESCRIPTION:      ####"
 
     printf "\n"
-    
+
     display_store "view all"
 
     printf "\n"
@@ -147,7 +148,7 @@ store_menu_story () {
     load_user_store_data "${username,,}"
 
     space_after=`expr 31 - ${#user_doscoins}`
-    space_after=`printf ' %.0s' $(seq 1 $space_after)` 
+    space_after=`printf ' %.0s' $(seq 1 $space_after)`
 
     echo "####                  $user_doscoins dosCOINS$space_after####"
 
@@ -167,23 +168,23 @@ store_menu_story () {
     echo "####         3. Exit to the home dashboard                    ####"
     read store_menu_response
 
-    store_menu_response_lowercase=`echo "$store_menu_response" | tr '[:upper:]' '[:lower:]'`
-    validate_store_menu_response
+    store_menu_response=`echo "$store_menu_response" | tr '[:upper:]' '[:lower:]'`
+    validate_response "$store_menu_response" "1" "2" "3"
 
-    if [ "$store_menu_response_lowercase" == "1" ]; then
+    if [ "$store_menu_response" == "1" ]; then
         clear
         printf "\n"
 
         display_store "purchase items"
 
-    elif [ "$store_menu_response_lowercase" == "2" ]; then
+    elif [ "$store_menu_response" == "2" ]; then
         clear
         printf "\n"
 
         echo "Please enter a search term:"
         display_store "item search"
 
-    elif [ "$store_menu_response_lowercase" == "3" ]; then
+    elif [ "$store_menu_response" == "3" ]; then
         home_menu_story
     fi
 
@@ -231,22 +232,22 @@ account_settings_menu_story () {
     echo "####         5. Exit to the home dashboard                    ####"
     read account_settings_menu_response
 
-    account_settings_menu_response_lowercase=`echo "$account_settings_menu_response" | tr '[:upper:]' '[:lower:]'`
-    validate_account_settings_menu_response
+    account_settings_menu_response=`echo "$account_settings_menu_response" | tr '[:upper:]' '[:lower:]'`
+    validate_response "$account_settings_menu_response" "1" "2" "3" "4" "5"
 
-    if [ "$account_settings_menu_response_lowercase" == "1" ]; then
+    if [ "$account_settings_menu_response" == "1" ]; then
         display_account_settings "change username"
 
-    elif [ "$account_settings_menu_response_lowercase" == "2" ]; then
+    elif [ "$account_settings_menu_response" == "2" ]; then
         display_account_settings "change password"
 
-    elif [ "$account_settings_menu_response_lowercase" == "3" ]; then
+    elif [ "$account_settings_menu_response" == "3" ]; then
         display_account_settings "update name"
 
-    elif [ "$account_settings_menu_response_lowercase" == "4" ]; then
+    elif [ "$account_settings_menu_response" == "4" ]; then
         display_account_settings "update dob"
 
-    elif [ "$account_settings_menu_response_lowercase" == "5" ]; then
+    elif [ "$account_settings_menu_response" == "5" ]; then
         home_menu_story
     fi
 
@@ -257,45 +258,58 @@ account_settings_menu_story () {
 # Guided Stories
 welcome_story () {
     clear
-    sleep 1
+
+    cat ./logo
+
+    sleep 0.4
     printf "\n"
 
-    echo ":) - Welcome to the GlaDOS Emporium! Home to the famous Portal Slushy™ that takes you places ®."
+    echo "WELCOME USER, PLEASE SELECT AN ACTION"
 
-    sleep 2.6
+    sleep 1.4
     printf "\n"
 
-    echo -e ":) - I'm your store assistant Adam. I'm here to help you navigate the store and assist you with creating and managing your account,\nmaking purchases with dosCOINS, and anything else you might need."
+    echo -e "Do you want to learn about the GLaDOS Emporium or go to the store? (Learn/skip)"
+    read skip_tour
 
-    sleep 4
-    printf "\n"
+    skip_tour=`echo "$1" | tr '[:upper:]' '[:lower:]'`
+    validate_response "$skip_tour" 'learn' 'skip'
 
-    echo ":) - Now that you've arrived at the GlaDOS Emporium, you need to either create an account or sign in to your existing account."
-
-    sleep 3
-
-    echo ":) - Do you have a GlaDOS Emporium account? (y/N)"
-    read account_status
-
-    account_status_lowercase=`echo "$account_status" | tr '[:upper:]' '[:lower:]'`
-    validate_user_account_status
-
-    if [ "$account_status_lowercase" == "y" ] || [ "$account_status_lowercase" == "yes" ]; then
-        printf "\n"
-
-        echo ":) - Great! Please log in."
-
-        account_login
-
-    elif [ "$account_status_lowercase" == "n" ] || [ "$account_status_lowercase" == "no" ]; then
-        printf "\n"
-
-        echo ":) - Okay, let's create your account."
-
-        account_signup
+    if [[ "$skip_tour" == "l" ]] || [[ "$skip_tour" == "learn" ]]; then
+        store_tour_story
+    elif [[ "$skip_tour" == "s" ]] || [[ "$skip_tour" == "skip" ]]; then
+        store_story
     fi
 
-    sleep 2.6
+    # sleep 4
+    # printf "\n"
+
+    # echo ":) - Now that you've arrived at the GLaDOS Emporium, you need to either create an account or sign in to your existing account."
+
+    # sleep 3
+
+    # echo ":) - Do you have a GLaDOS Emporium account? (y/N)"
+    # read account_status
+
+    # account_status=`echo "$account_status" | tr '[:upper:]' '[:lower:]'`
+    # validate_user_account_status
+
+    # if [ "$account_status" == "y" ] || [ "$account_status" == "yes" ]; then
+    #     printf "\n"
+
+    #     echo ":) - Great! Please log in."
+
+    #     account_login
+
+    # elif [ "$account_status" == "n" ] || [ "$account_status" == "no" ]; then
+    #     printf "\n"
+
+    #     echo ":) - Okay, let's create your account."
+
+    #     account_signup
+    # fi
+
+    # sleep 2.6
 }
 
 store_story () {
@@ -309,17 +323,17 @@ store_story () {
         echo ":) - Do you want a tour of the store $user_nickname?"
         read store_tour
 
-        store_tour_lowercase=`echo "$store_tour" | tr '[:upper:]' '[:lower:]'`
+        store_tour=`echo "$store_tour" | tr '[:upper:]' '[:lower:]'`
         validate_store_tour
 
-        if [ "$store_tour_lowercase" == 'y' ] || [ "$store_tour_lowercase" == 'yes' ]; then
+        if [ "$store_tour" == 'y' ] || [ "$store_tour" == 'yes' ]; then
             store_tour_story
 
             save_user_preference "${username,,}" "true" "false"
 
             store_menu_story
 
-        elif [ "$store_tour_lowercase" == 'n' ] || [ "$store_tour_lowercase" == 'no' ]; then
+        elif [ "$store_tour" == 'n' ] || [ "$store_tour" == 'no' ]; then
             save_user_preference "${username,,}" "true" "false"
 
             printf "\n"
@@ -353,7 +367,7 @@ store_story () {
 log_out_story () {
     printf "\n"
 
-    echo ":) - Thank you for visiting the GlaDOS Emporium $user_nickname. We're looking forward to your next visit!"
+    echo ":) - Thank you for visiting the GLaDOS Emporium $user_nickname. We're looking forward to your next visit!"
 
     sleep 2.4
     printf "\n"
@@ -368,7 +382,7 @@ store_tour_story () {
     clear
     printf "\n"
 
-    echo ":) - Let's take a brief look at some parts of the store page."
+    echo "The GLaDOS Emporium store interface is easy to use, simply look through the list of items and type in the name of "
 
     sleep 1.4
     printf "\n"
@@ -436,7 +450,7 @@ store_tour_story () {
 
     sleep 2.6
 
-    items_list_lowercase=`echo "${items_list[@]}" | tr '[:upper:]' '[:lower:]'`
+    items_list=`echo "${items_list[@]}" | tr '[:upper:]' '[:lower:]'`
     validate_items_list
 
     load_user_store_data "storetour"
@@ -495,7 +509,7 @@ store_tour_story () {
     echo "Please enter a search term:"
     read search_term
 
-    search_term_lowercase=`echo "$search_term" | tr '[:upper:]' '[:lower:]'`
+    search_term=`echo "$search_term" | tr '[:upper:]' '[:lower:]'`
     validate_search_term
 
     echo ":) - You'll get a list similar to the store page, that shows you the names, prices, and descriptions of the items you searched for."
@@ -508,7 +522,7 @@ store_tour_story () {
     printf "\n"
 
     echo "####   ITEM NAME:     ITEM PRICE:        ITEM DESCRIPTION:    ####"
-    
+
     for i in ${store_items[@]}; do
         if [[ "$i" =~ "${search_term}" ]]; then
             print_store_item

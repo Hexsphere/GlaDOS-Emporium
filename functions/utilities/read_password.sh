@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 read_password () {
     password=''
@@ -6,7 +6,7 @@ read_password () {
         [[ -z $char ]] && { printf '\n'; break; }
         if [[ $char == $'\x7f' ]]; then
             [[ -n $password ]] && password=${password%?}
-            printf '\b \b' 
+            printf '\b \b'
         else
             password+=$char
             printf '*'

@@ -63,7 +63,7 @@ validate_username () {
         echo -e ":) - Sorry, the username you entered doesn't exist in our records. Please try again or enter \"exit\" to exit this menu."
 
         get_username "login"
-    
+
     elif [ "$1" == "signup" ] && [[ " ${registered_users[@],,} " =~ " ${username,,} " ]]; then
         printf "\n"
 
@@ -170,7 +170,7 @@ validate_user_account_data () {
     elif [[ $((current_year - users_dob)) -lt 12 ]]; then
         printf "\n"
 
-        echo ":) - Sorry, the date of birth you entered makes you too young to create a GlaDOS Emporium account. Please enter a date of birth (i.e. DD.MM.YYYY):"
+        echo ":) - Sorry, the date of birth you entered makes you too young to create a GLaDOS Emporium account. Please enter a date of birth (i.e. DD.MM.YYYY):"
 
         get_user_data "dob"
     fi
@@ -216,7 +216,7 @@ validate_new_username () {
 
         get_new_username
 
-    elif [ -z "$new_username" ]; then 
+    elif [ -z "$new_username" ]; then
         echo -e "Whoops, you didn't enter anything. Please enter a new username or enter \"exit\" to exit this menu."
 
         get_new_username
@@ -234,7 +234,7 @@ validate_new_username () {
         echo "You can't enter your current username as your new username."
 
         get_new_username
-    
+
     elif [[ " ${registered_users[@],,} " =~ " ${new_username,,} " ]]; then
         printf "\n"
 
@@ -262,7 +262,7 @@ validate_new_password () {
 
         get_new_password
 
-    elif [ -z "$password" ]; then 
+    elif [ -z "$password" ]; then
         echo -e "Whoops, you didn't enter anything. Please enter a new password or enter \"exit\" to exit this menu."
 
         get_new_password
@@ -280,7 +280,7 @@ validate_new_password () {
         echo "You can't enter your current password as your new password."
 
         get_new_password
-    
+
     elif [[ " ${registered_passwords[@],,} " =~ " ${new_password,,} " ]]; then
         printf "\n"
 
@@ -337,7 +337,7 @@ validate_new_dob () {
     if [ "$new_dob_lowercase" == "exit" ]; then
         account_settings_menu_story
 
-    elif [ -z "$new_dob_lowercase" ]; then 
+    elif [ -z "$new_dob_lowercase" ]; then
         echo -e "Whoops, you didn't enter anything. Please enter a new date of birth (i.e. DD.MM.YYYY) or enter \"exit\" to exit this menu."
 
         get_new_dob
@@ -350,9 +350,9 @@ validate_new_dob () {
         get_new_dob
 
     elif [[ $((current_year - users_dob)) -lt 12 ]]; then
-        printf "\n" 
+        printf "\n"
 
-        echo ":) - Sorry, the date of birth you entered makes you too young to use a GlaDOS Emporium account. Please enter a new date of birth (i.e. DD.MM.YYYY) or enter \"exit\" to exit this menu."
+        echo ":) - Sorry, the date of birth you entered makes you too young to use a GLaDOS Emporium account. Please enter a new date of birth (i.e. DD.MM.YYYY) or enter \"exit\" to exit this menu."
 
         get_new_dob
     fi
@@ -387,8 +387,8 @@ account_login () {
     load_user_preferences "${username,,}"
 
     printf "\n"
-    
-    echo "Login successful! Welcome back to the GlaDOS Emporium, $user_nickname."
+
+    echo "Login successful! Welcome back to the GLaDOS Emporium, $user_nickname."
 }
 
 account_signup () {
@@ -396,7 +396,7 @@ account_signup () {
     clear
     printf "\n"
 
-    echo ":) - To create a GlaDOS Emporium account, you need to enter your first and last name, your date of birth along with your username and password."
+    echo ":) - To create a GLaDOS Emporium account, you need to enter your first and last name, your date of birth along with your username and password."
 
     sleep 2.8
     printf "\n"
@@ -480,8 +480,8 @@ account_signup () {
     register_user "${username,,}"
 
     printf "\n"
-    
-    echo ":) - Signup successful! Welcome to the GlaDOS Emporium, $user_nickname."
+
+    echo ":) - Signup successful! Welcome to the GLaDOS Emporium, $user_nickname."
 }
 
 
@@ -564,7 +564,7 @@ display_account_settings () {
 
         echo "Your date of birth was successfully changed."
 
-        sleep 1.6    
+        sleep 1.6
 
     elif [ "$1" == "account information" ]; then
         column_1_spaces=`expr 15 - ${#username}`

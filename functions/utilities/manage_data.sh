@@ -116,10 +116,10 @@ get_store_items () {
             ((loop++))
         done
 
-    else  
+    else
         printf "\n"
 
-        echo ":) - The store data doesn't exist. Please contact the GlaDOS Emporium admins for help."
+        echo ":) - The store data doesn't exist. Please contact the GLaDOS Emporium admins for help."
 
         sleep 2.4
     fi
@@ -138,7 +138,7 @@ set_user_purchase_data () {
             if [[ $item =~ ^[0-9]+$ ]]; then
                 item_quantities+=( $item )
 
-            else 
+            else
                 items+=( $item )
             fi
         done

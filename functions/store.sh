@@ -1,4 +1,5 @@
 # DATA
+source ./functions/utilities/validate_response.sh
 source ./functions/utilities/manage_data.sh
 
 
@@ -6,28 +7,28 @@ source ./functions/utilities/manage_data.sh
 
 
 # Validation
-validate_home_menu_response () {
-    get_home_menu_response () {
-        read home_menu_response
+# validate_home_menu_response () {
+#     get_home_menu_response () {
+#         read home_menu_response
 
-        home_menu_response_lowercase=`echo "$home_menu_response" | tr '[:upper:]' '[:lower:]'`
-        validate_home_menu_response
+#         home_menu_response_lowercase=`echo "$home_menu_response" | tr '[:upper:]' '[:lower:]'`
+#         validate_home_menu_response
 
-    }
+#     }
 
-    if [ -z "$home_menu_response_lowercase" ]; then
-        echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
+#     if [ -z "$home_menu_response_lowercase" ]; then
+#         echo -e ":) - Whoops, you didn't enter a number. Please enter the number of the option you want to select."
 
-        get_home_menu_response
+#         get_home_menu_response
 
-    elif [ "$home_menu_response_lowercase" != "1" ] && [ "$home_menu_response_lowercase" != "2" ] && [ "$home_menu_response_lowercase" != "3" ]; then
-        printf "\n"
+#     elif [ "$home_menu_response_lowercase" != "1" ] && [ "$home_menu_response_lowercase" != "2" ] && [ "$home_menu_response_lowercase" != "3" ]; then
+#         printf "\n"
 
-        echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\", or \"3\" to select an option."
+#         echo -e ":) - Sorry, you entered a response that I didn't understand. Please only use \"1\", \"2\", or \"3\" to select an option."
 
-        get_home_menu_response
-    fi
-}
+#         get_home_menu_response
+#     fi
+# }
 
 validate_store_tour () {
     get_store_tour () {
@@ -162,7 +163,7 @@ validate_search_term () {
         echo "Whoops, you didn't enter any search terms. Please enter a search term to find an item."
 
         get_search_term
-    
+
     elif [[ ! "${store_items[@]}" =~ "${search_term_lowercase}" ]]; then
         printf "\n"
 
@@ -199,7 +200,7 @@ validate_purchase () {
 
         echo "Sorry, you don't have enough dosCOINS to purchase the item \"$item\"... You'll have to earn more dosCOINS to purchase this item."
 
-        get_items_list        
+        get_items_list
     fi
 }
 
@@ -295,7 +296,7 @@ display_store () {
         echo "####     NAME:     CATEGORY:     PRICE:     DESCRIPTION:      ####"
 
         printf "\n"
-    
+
         for i in ${store_items[@]}; do
             if [[ "$i" =~ "${search_term_lowercase}" ]]; then
                 print_store_item "items"
